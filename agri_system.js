@@ -10,7 +10,8 @@ function set_ready(){
   document.getElementById("game_number").innerHTML= "<font size='6'>" + gameNumber + "</font>問目：";
 	document.getElementById("start_btn_area").innerHTML = "";
 	document.getElementById("next_area").innerHTML = "<input type='button' value='▷' class='set_next_btn' onclick='setNextText()''>";
-  document.getElementById("answer_area").innerHTML = "	<form name='answer_form'>答え：<input type='text' name='player_answer' value=''><br><input type='button' value='回答' onclick='answer_judge()'><br></form>";
+  document.getElementById("answer_area").innerHTML = "<form name='answer_form'><input type='text' name='player_answer' placeholder='回答を入力'>　<input class='player_answer' type='button' value='回答' onclick='answer_judge()'></form>";
+
 
   //問題シャッフル
 	for (var i = qa.length - 1; i >= 0; i--){
@@ -33,7 +34,7 @@ function setNextText() {
 		questionBlackText += textReadAloud[gameNumber - 1][wordCount];
 	}
 	wordCount++;
-	document.getElementById("question_text").innerHTML = "<p>" + questionBlackText + "<font color='red'>" + questionRedText + "</font></p>";
+	document.getElementById("question_text").innerHTML = "<p>　" + questionBlackText + "<font color='red'>" + questionRedText + "</font></p>";
 	document.getElementById("word_count").innerHTML= "<font size='5'>" + wordCount + "</font>文字目";
 }
 
@@ -46,11 +47,9 @@ function answer_judge() {
 		document.getElementById("qa_result_area").innerHTML += "<p>" + qa[gameNumber - 1][0] + "：" + resultBlack + resultRed;
 		gameNumber++;
 		wordCount = 0;
-		questionText = textReadAloud[gameNumber - 1][wordCount];
-		wordCount++;
+		questionBlackText = questionRedText = "";
 		document.getElementById("game_number").innerHTML= "<font size='6'>" + gameNumber + "</font>問目";
-		document.getElementById("question_text").innerHTML = questionText;
-		document.getElementById("word_count").innerHTML= "<font size='4'>" + wordCount + "</font>文字目";
+		setNextText();
 	} else {
 		document.getElementById("qa_result_area").innerHTML= "<div class='qa_result_area_blue'>×不正解</div>";
 	}
