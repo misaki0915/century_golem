@@ -4,7 +4,7 @@ let questionBlackText = "";
 let questionRedText = "";
 let wordCount = 0;
 let gameNumber = 1;
-var disabledNext = document.getElementById('set_next_btn');
+let history = "";
 
 function set_ready(){
 	//各div代入
@@ -54,7 +54,8 @@ function answer_judge() {
 		document.getElementById("next_area").innerHTML = "<input type='button' value='▷' id='set_next_btn' class='set_next_btn' onclick='setNextText()'>";
 		setNextText();
 	} else {
-		document.getElementById("qa_result_area").innerHTML= "<div class='qa_result_area_blue'>×不正解</div>";
+		history += "<li>" + playerAnswer + "</li>"
+		document.getElementById("qa_result_area").innerHTML = "<div class='qa_result_area_blue'>×不正解</div><p>これまでの回答</p>" + history;
 	}
 }
 
