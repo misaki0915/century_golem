@@ -4,15 +4,14 @@ let questionBlackText = "";
 let questionRedText = "";
 let wordCount = 0;
 let gameNumber = 1;
+var disabledNext = document.getElementById('set_next_btn');
 
 function set_ready(){
 	//各div代入
   document.getElementById("game_number").innerHTML= "<font size='6'>" + gameNumber + "</font>問目：";
 	document.getElementById("start_btn_area").innerHTML = "";
-	document.getElementById("next_area").innerHTML = "<input type='button' value='▷' class='set_next_btn' onclick='setNextText()''>";
+	document.getElementById("next_area").innerHTML = "<input type='button' value='▷' id='set_next_btn' class='set_next_btn' onclick='setNextText()'>";
   document.getElementById("answer_area").innerHTML = "<form name='answer_form'><input type='text' name='player_answer' placeholder='回答を入力'>　<input class='player_answer' type='button' value='回答' onclick='answer_judge()'></form>";
-
-
   //問題シャッフル
 	for (var i = qa.length - 1; i >= 0; i--){
 	  var j = Math.floor(Math.random() * (i + 1));
@@ -28,6 +27,9 @@ function set_ready(){
 }
 
 function setNextText() {
+	if(wordCount >= qa[gameNumber - 1][1].length - 1){
+	  document.getElementById("next_area").innerHTML = "<input type='button' value='▷' id='set_next_btn' class='set_next_btn' onclick='setNextText()' disabled>";
+	}
 	if(wordCount > qa[gameNumber - 1][2] - 1){
 		questionRedText += textReadAloud[gameNumber - 1][wordCount];
 	} else {
@@ -49,6 +51,7 @@ function answer_judge() {
 		wordCount = 0;
 		questionBlackText = questionRedText = "";
 		document.getElementById("game_number").innerHTML= "<font size='6'>" + gameNumber + "</font>問目";
+		document.getElementById("next_area").innerHTML = "<input type='button' value='▷' id='set_next_btn' class='set_next_btn' onclick='setNextText()'>";
 		setNextText();
 	} else {
 		document.getElementById("qa_result_area").innerHTML= "<div class='qa_result_area_blue'>×不正解</div>";
