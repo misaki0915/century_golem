@@ -13,12 +13,15 @@
     <div id="word_count"></div>
     <div id="question_text"></div>
     <div id="fix_area"><input type="button" value="Next" class="set_next_btn" onclick="setNextText()"></div>
-    <div id="test_text"></div>
-    <div id="test_text2"></div>
     <form name="answer_form">
       答え：<input type="text" name="player_answer" value=""><br>
       <input type="button" value="回答" onclick="answer_judge()"><br>
     </form>
+    <form name="retrieval_form">
+      検索：<input type="text" name="retrieval" value=""><br>
+      <input type="button" value="検索" onclick="retrieval_judge()"><br>
+    </form>
+    <div id="retrieval_text"></div>
   </div>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="carta_list.js"></script>
