@@ -3,19 +3,24 @@ let questionText = "";
 let wordCount = 0;
 let gameNumber = 1;
 
-set_ready();
-
 function set_ready(){
+	//各div代入
   document.getElementById("game_number").innerHTML= "<font size='6'>" + gameNumber + "</font>問目";
+	document.getElementById("start_btn_area").innerHTML = "";
+	document.getElementById("next_area").innerHTML = "<input type='button' value='Next' class='set_next_btn' onclick='setNextText()''>";
+  document.getElementById("answer_area").innerHTML = "	<form name='answer_form'>答え：<input type='text' name='player_answer' value=''><br><input type='button' value='回答' onclick='answer_judge()'><br></form>";
+
   //問題シャッフル
 	for (var i = qa.length - 1; i >= 0; i--){
 	  var j = Math.floor(Math.random() * (i + 1));
 	  [qa[i], qa[j]] = [qa[j], qa[i]];
 	}
+
 	//テキスト分割
-	for(var i = 0; i <= qa.length; i++){
-	  textReadAloud[i] = qa[i][1].split('');
+	for(var s = 0; s < qa.length; s++){
+	  textReadAloud[s] = qa[s][1].split('');
 	}
+
 	setNextText();
 }
 
