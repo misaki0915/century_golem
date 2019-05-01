@@ -2,40 +2,29 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<link rel="stylesheet" href="agri_base.css">
+<link rel="stylesheet" href="century_base.css">
 <link href="https://fonts.googleapis.com/css?family=IM+Fell+DW+Pica+SC" rel="stylesheet">
-<title>AGRICARTA</title>
+<title>Century Golem</title>
 </head>
 <body>
   <div class="game_screen">
-    <h1 id="game_h1title">AGRICARTA</h1>
+    <h1 id="game_h1title">Century Golem</h1>
     <div id="start_btn_area">
       <a onclick='set_ready()' class="btn-flat-simple">START</a>
     </div>
-    <div class="flex">
-      <div id="question_area">
-        <div id="game_number"></div>
-        <div id="question_text"></div>
-        <div class="flex">
-          <div id="word_count"></div>
-          <div id="next_area"></div>
-        </div>
-      </div>
-      <div id="qa_result_area"></div>
-    </div>
-    <div id="answer_area"></div>
-    <img src="img/agri_line.png" alt="line" title="line" width="100%">
-    <div id="retrieval_text_btn">
-      <form name="retrieval_form">
-        <input class ="retrieval_word" type="text" name="retrieval" placeholder="職業名で検索">　
-        <input id="retrieval_btn" type="button" value="検索" onclick="retrieval_judge()">
-      </form>
-    </div>
-    <div id="retrieval_result_box"></div>
-  </div>
+    <div id="game_turn"></div>
   <div id="test_text"></div>
+  <div id="hand_card_area"></div>
+  <div id="gradeup_jewel_area"></div>
+  <p>所持jewel</p>
+  <div id="jewel_area"></div>
+  <hr>
+  <div id="golem_market"></div>
+  <hr>
+  <div id="card_market"></div>
+  <div id="payment"></div>
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script type="text/javascript" src="carta_list.js"></script>
-  <script type="text/javascript" src="agri_system.js"></script>
+  <script type="text/javascript" src="century_list.js"></script>
+  <script type="text/javascript" src="century_system.js"></script>
 </body>
 </html>
