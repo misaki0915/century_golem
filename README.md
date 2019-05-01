@@ -1,1 +1,1 @@
-# ・♦︎♢♦︎♢ Century Golem ♦︎♢♦︎♢・
+# ・♢♦︎♢♦︎ Century Golem ♦︎♢♦︎♢・
