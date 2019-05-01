@@ -172,6 +172,14 @@ function purchase_card(cardNumber){
   let j = 0;
   document.getElementById("card_market").innerHTML = "";
   document.getElementById("payment").innerHTML = "購入しました！";
+
+  //設置jewelの回収
+  for(let i = 0; i < 4; i++){
+    plusJewel = i + 11;
+    jewelColorCount[i] = jewelColorCount[i] + handCard[cardNumber][plusJewel];
+  }
+  jewel_description();
+
   for(i = 2; i < handCard.length - 1, j < 6; i++){
     if(handCard[i][9] == 0){
 
