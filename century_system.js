@@ -3,6 +3,7 @@ jewelColorCount[0] = 0;
 jewelColorCount[1] = 0;
 jewelColorCount[2] = 0;
 jewelColorCount[3] = 0;
+let allJewel = 0;
 
 let golemPossession = new Array;
 
@@ -28,6 +29,10 @@ function set_ready(){
 }
 
 function use_card(cardPossession){// handCard[cardPossession] を使用する
+  allJewel = jewelColorCount[0] + jewelColorCount[1] + jewelColorCount[2] + jewelColorCount[3];
+  if(allJewel > 10){
+    return;
+  }
   if(handCard[cardPossession][8] > 0){
     gradeup_jewel(1, handCard[cardPossession][8]);
   } else if(jewelColorCount[0] >= handCard[cardPossession][0] && jewelColorCount[1] >= handCard[cardPossession][1] && jewelColorCount[2] >= handCard[cardPossession][2] && jewelColorCount[3] >= handCard[cardPossession][3]){
@@ -36,6 +41,7 @@ function use_card(cardPossession){// handCard[cardPossession] を使用する
       jewelColorCount[x] = jewelColorCount[x] + handCard[cardPossession][x + 4];
     }
     jewel_description();
+    over_jewel_check();
     gameTurn++;
     document.getElementById("game_turn").innerHTML = gameTurn + "turn";
   } else {
@@ -90,6 +96,11 @@ function gradeup_jewel(count, allCount, gradeupColor){
 }
 
 function purchase_golem(golemNumber){
+  allJewel = jewelColorCount[0] + jewelColorCount[1] + jewelColorCount[2] + jewelColorCount[3];
+  if(allJewel > 10){
+    return;
+  }
+
   if(jewelColorCount[0] >= golem[golemNumber][1] && jewelColorCount[1] >= golem[golemNumber][2] && jewelColorCount[2] >= golem[golemNumber][3] && jewelColorCount[3] >= golem[golemNumber][4]){
     alert(golem[golemNumber][0] + "点ゴーレムを購入しました");
     gameTurn++;
@@ -120,6 +131,10 @@ function purchase_golem(golemNumber){
 }
 
 function payment_jewel(position, count, allCount, cardPossession, colorNumber){
+  allJewel = jewelColorCount[0] + jewelColorCount[1] + jewelColorCount[2] + jewelColorCount[3];
+  if(allJewel > 10){
+    return;
+  }
   let total = jewelColorCount[0] + jewelColorCount[1] + jewelColorCount[2] + jewelColorCount[3];
   if(count > 0){
     jewelColorCount[colorNumber] = jewelColorCount[colorNumber] - 1;
@@ -178,6 +193,7 @@ function purchase_card(cardNumber){
     plusJewel = i + 11;
     jewelColorCount[i] = jewelColorCount[i] + handCard[cardNumber][plusJewel];
   }
+  over_jewel_check();
   jewel_description();
 
   for(i = 2; i < handCard.length - 1, j < 6; i++){
@@ -244,4 +260,49 @@ function jewel_description(){
       default: alert("error");
     }
   }
+}
+
+function over_jewel_check(discardColor){
+  switch (discardColor) {
+    case 0:
+      jewelColorCount[0]--;
+      break;
+
+    case 1:
+      jewelColorCount[1]--;
+      break;
+
+    case 2:
+      jewelColorCount[2]--;
+      break;
+
+    case 3:
+      jewelColorCount[2]--;
+      break;
+
+    default:
+    break;
+  }
+
+  allJewel = jewelColorCount[0] + jewelColorCount[1] + jewelColorCount[2] + jewelColorCount[3];
+  if(allJewel > 10){
+    document.getElementById("discard_jewel_area").innerHTML = "jewelが10個以上あります。捨てるジュエルを選んでください。";
+    let discardSelect = "";
+    for(var i = 0; i < jewelColorCount[0]; i++){
+      discardSelect += "<font color='yellow'><a onclick='over_jewel_check(0)' class=''>●</a></font>";
+    };
+    for(var i = 0; i < jewelColorCount[1]; i++){
+      discardSelect += "<font color='green'><a onclick='over_jewel_check(1)' class=''>●</a></font>";
+    };
+    for(var i = 0; i < jewelColorCount[2]; i++){
+      discardSelect += "<font color='blue'><a onclick='over_jewel_check(2)' class=''>●</a></font>";
+    };
+    for(var i = 0; i < jewelColorCount[3]; i++){
+      discardSelect += "<font color='red'><a onclick='over_jewel_check(3)' class=''>●</a></font>";
+    };
+    document.getElementById("discard_jewel_area").innerHTML += discardSelect;
+  } else {
+    document.getElementById("discard_jewel_area").innerHTML = "";
+  }
+  jewel_description();
 }
