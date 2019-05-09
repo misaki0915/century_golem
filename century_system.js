@@ -4,6 +4,12 @@ jewelColorCount[1] = 0;
 jewelColorCount[2] = 0;
 jewelColorCount[3] = 0;
 let allJewel = 0;
+let possessionCardList = new Array;
+possessionCardList[1] = "";
+possessionCardList[2] = "";
+possessionCardList[3] = "";
+possessionCardList[4] = "";
+possessionCardList[5] = "";
 
 let golemPossession = new Array;
 
@@ -13,18 +19,20 @@ let golemNumber = 0;
 let marketCount = 4;
 let golemMarketPlase = 0;
 
+
 function set_ready(){
   for(golemNumber = 0; golemNumber < 5; golemNumber++){
     golemPossession[golemNumber] = "<p>【" + golem[golemNumber][0] + "点】" + golem[golemNumber][6] + "<a onclick='purchase_golem(" + golemNumber + ")' class=''> [購入]</a>";
   document.getElementById("golem_market").innerHTML += golemPossession[golemNumber];
   }
-  document.getElementById("hand_card_area").innerHTML = "<li>" + handCard[0][10] + "<a onclick='use_card(" + 0 + ")' class=''> [使う]</a></li>";
-  document.getElementById("hand_card_area").innerHTML += "<li>" + handCard[1][10] + "<a onclick='use_card(" + 1 + ")' class=''> [使う]</a></li>";
 
   for(let cardPossession = 2; cardPossession < 8; cardPossession++){
     let position = cardPossession - 2;
     document.getElementById("card_market").innerHTML += "<li>" + handCard[cardPossession][10] + "<a onclick='payment_jewel(" + position + "," + 0 + "," + position + "," + cardPossession + ")' class=''> [購入]</a></li>";
   };
+
+  hand_description();
+
   document.getElementById("game_turn").innerHTML = gameTurn + "turn";
 }
 
@@ -33,6 +41,8 @@ function use_card(cardPossession){// handCard[cardPossession] を使用する
   if(allJewel > 10){
     return;
   }
+  handCard[cardPossession][14] = 1;
+  hand_description();
   if(handCard[cardPossession][8] > 0){
     gradeup_jewel(1, handCard[cardPossession][8]);
   } else if(jewelColorCount[0] >= handCard[cardPossession][0] && jewelColorCount[1] >= handCard[cardPossession][1] && jewelColorCount[2] >= handCard[cardPossession][2] && jewelColorCount[3] >= handCard[cardPossession][3]){
@@ -277,7 +287,7 @@ function over_jewel_check(discardColor){
       break;
 
     case 3:
-      jewelColorCount[2]--;
+      jewelColorCount[3]--;
       break;
 
     default:
@@ -305,4 +315,33 @@ function over_jewel_check(discardColor){
     document.getElementById("discard_jewel_area").innerHTML = "";
   }
   jewel_description();
+}
+
+
+function hand_description(){
+  possessionCardList[1] = "";
+
+  if(handCard[0][14] == 0){
+    possessionCardList[1] += "<li>" + handCard[0][10] + "<a onclick='use_card(0)' class=''> [使う]</a></li>";
+  }
+  if(handCard[0][14] == 1){
+    possessionCardList[1] += "<li>" + handCard[0][10] + "(済)</li>";
+  }
+  if(handCard[1][14] == 0){
+    possessionCardList[1] += "<li>" + handCard[1][10] + "<a onclick='use_card(1)' class=''> [使う]</a></li>";
+  }
+  if(handCard[1][14] == 1){
+    possessionCardList[1] += "<li>" + handCard[1][10] + "(済)</li>";
+  }
+
+  for(i = 2; i < handCard.length - 1; i++){
+    if(handCard[i][9] == 1 && handCard[i][14] == 0){
+      possessionCardList[1] += "<li>" + handCard[i][10] + "<a onclick='use_card(" + i + ")' class=''> [使う]</a></li>";
+    }
+    if(handCard[i][9] == 1 && handCard[i][14] == 1){
+      possessionCardList[1] += "<li>" + handCard[i][10] + "<a onclick='use_card(" + i + ")' class=''> (済)</a></li>";
+    }
+  }
+
+  document.getElementById("hand_card_area").innerHTML = possessionCardList[1];
 }
