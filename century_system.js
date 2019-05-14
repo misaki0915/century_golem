@@ -41,11 +41,13 @@ function use_card(cardPossession){// handCard[cardPossession] を使用する
   if(allJewel > 10){
     return;
   }
-  handCard[cardPossession][14] = 1;
-  hand_description();
   if(handCard[cardPossession][8] > 0){
+    handCard[cardPossession][14] = 1;
+    hand_description();
     gradeup_jewel(1, handCard[cardPossession][8]);
   } else if(jewelColorCount[0] >= handCard[cardPossession][0] && jewelColorCount[1] >= handCard[cardPossession][1] && jewelColorCount[2] >= handCard[cardPossession][2] && jewelColorCount[3] >= handCard[cardPossession][3]){
+    handCard[cardPossession][14] = 1;
+    hand_description();
     for(var x = 0; x < 4; x++){
       jewelColorCount[x] = jewelColorCount[x] - handCard[cardPossession][x];
       jewelColorCount[x] = jewelColorCount[x] + handCard[cardPossession][x + 4];
@@ -127,9 +129,9 @@ function purchase_golem(golemNumber){
     for(i = 0; i < golem.length, j < 5; i++){
       if(golem[i][5] == 0){
         if(j == 0){
-          document.getElementById("golem_market").innerHTML += "<p>⑶</p>"
+          //document.getElementById("golem_market").innerHTML += "<p>⑶</p>"
         } else if(j == 1){
-          document.getElementById("golem_market").innerHTML += "<p>⑴</p>"
+          //document.getElementById("golem_market").innerHTML += "<p>⑴</p>"
         }
         document.getElementById("golem_market").innerHTML += "<p>【" + golem[i][0] + "点】" + golem[i][6] + "<a onclick='purchase_golem(" + i + ")' class=''> [購入]</a></p>";
         j++;
@@ -319,29 +321,41 @@ function over_jewel_check(discardColor){
 
 
 function hand_description(){
-  possessionCardList[1] = "";
-
+  possessionCardList[1] = "所持カード　<a onclick='hand_refresh()' class=''>[Refresh!]</a>";
   if(handCard[0][14] == 0){
     possessionCardList[1] += "<li>" + handCard[0][10] + "<a onclick='use_card(0)' class=''> [使う]</a></li>";
   }
   if(handCard[0][14] == 1){
-    possessionCardList[1] += "<li>" + handCard[0][10] + "(済)</li>";
+    possessionCardList[1] += "<li>" + handCard[0][10] + "</li>";
   }
   if(handCard[1][14] == 0){
     possessionCardList[1] += "<li>" + handCard[1][10] + "<a onclick='use_card(1)' class=''> [使う]</a></li>";
   }
   if(handCard[1][14] == 1){
-    possessionCardList[1] += "<li>" + handCard[1][10] + "(済)</li>";
+    possessionCardList[1] += "<li>" + handCard[1][10] + "</li>";
   }
 
-  for(i = 2; i < handCard.length - 1; i++){
+  for(i = 2; i < handCard.length; i++){
     if(handCard[i][9] == 1 && handCard[i][14] == 0){
       possessionCardList[1] += "<li>" + handCard[i][10] + "<a onclick='use_card(" + i + ")' class=''> [使う]</a></li>";
     }
     if(handCard[i][9] == 1 && handCard[i][14] == 1){
-      possessionCardList[1] += "<li>" + handCard[i][10] + "<a onclick='use_card(" + i + ")' class=''> (済)</a></li>";
+      possessionCardList[1] += "<li>" + handCard[i][10] + "</li>";
     }
   }
 
   document.getElementById("hand_card_area").innerHTML = possessionCardList[1];
+}
+
+function hand_refresh(){
+  handCard[0][14] = 0;
+  handCard[1][14] = 0;
+  for(i = 2; i < handCard.length; i++){
+    if(handCard[i][9] == 1){
+      handCard[i][14] = 0;
+    }
+  }
+  gameTurn++;
+  document.getElementById("game_turn").innerHTML = gameTurn + "turn";
+  hand_description();
 }
