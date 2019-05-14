@@ -36,7 +36,7 @@ function set_ready(){
   document.getElementById("game_turn").innerHTML = gameTurn + "turn";
 }
 
-function use_card(cardPossession){// handCard[cardPossession] を使用する
+function use_card(cardPossession, reuse){// handCard[cardPossession] を使用する
   allJewel = jewelColorCount[0] + jewelColorCount[1] + jewelColorCount[2] + jewelColorCount[3];
   if(allJewel > 10){
     return;
@@ -54,8 +54,14 @@ function use_card(cardPossession){// handCard[cardPossession] を使用する
     }
     jewel_description();
     over_jewel_check();
-    gameTurn++;
-    document.getElementById("game_turn").innerHTML = gameTurn + "turn";
+    if(reuse == null){
+      gameTurn++;
+      document.getElementById("game_turn").innerHTML = gameTurn + "turn";
+    }
+    if(handCard[cardPossession][11] == 1){
+      document.getElementById("test_text").innerHTML += "( ˙ㅂ˙)";
+      document.getElementById("gradeup_jewel_area").innerHTML = "<a onclick='use_card(" + cardPossession + ", 1)' class=''>[🔁もう1度使う]</a>";
+    };
   } else {
     alert("使えないよ┏( .-. ┏) ┓")
   }

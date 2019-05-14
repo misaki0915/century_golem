@@ -50,7 +50,7 @@ handCard[10] = [0,0,0,1,1,1,1,0,0,0,"",0,0,0,0,0];
 handCard[11] = [4,0,0,0,0,0,1,1,0,0,"",0,0,0,0,0];
 handCard[12] = [0,0,0,1,0,3,0,0,0,0,"",0,0,0,0,0];
 
-//handCard[カード番号] = [0必要黄,1必要緑,2必要青,3必要赤,4生成黄,5生成緑,6生成青,7生成赤,8改良数,9所持プレイヤー,10"表示テキスト",11,12,13,14使用フラグ,15];
+//handCard[カード番号] = [0必要黄,1必要緑,2必要青,3必要赤,4生成黄,5生成緑,6生成青,7生成赤,8改良数,9所持プレイヤー,10"表示テキスト",11繰り返し使用,12,13,14使用フラグ,15];
 
 for (var i = handCard.length - 1; i > 2; i--){
   var j = Math.floor(Math.random() * (i + 1) + 2);
@@ -80,6 +80,7 @@ for(let possession = 0; 0 < handCard.length; possession++){
     };
     if(jewelBefore !== ""){
       jewelBefore += "➡︎";
+      handCard[possession][11] = 1;
     }
 
     let jewelAfter = "";
