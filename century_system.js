@@ -22,10 +22,7 @@ let golemMarketPlase = 0;
 
 function set_ready(){
   //販売ゴーレムの設置
-  for(golemNumber = 0; golemNumber < 5; golemNumber++){
-    golemPossession[golemNumber] = "<p>【" + golem[golemNumber][0] + "点】" + golem[golemNumber][6] + "<a onclick='purchase_golem(" + golemNumber + ")' class=''> [購入]</a>";
-  document.getElementById("golem_market").innerHTML += golemPossession[golemNumber];
-  }
+  golem_description();
 
   //販売カードの設置
   for(let cardPossession = 2; cardPossession < 8; cardPossession++){
@@ -131,19 +128,7 @@ function purchase_golem(golemNumber){
 
     jewel_description();
     golem[golemNumber][5] = 1;
-    document.getElementById("golem_market").innerHTML = "";
-    let j = 0;
-    for(i = 0; i < golem.length, j < 5; i++){
-      if(golem[i][5] == 0){
-        if(j == 0){
-          //document.getElementById("golem_market").innerHTML += "<p>⑶</p>"
-        } else if(j == 1){
-          //document.getElementById("golem_market").innerHTML += "<p>⑴</p>"
-        }
-        document.getElementById("golem_market").innerHTML += "<p>【" + golem[i][0] + "点】" + golem[i][6] + "<a onclick='purchase_golem(" + i + ")' class=''> [購入]</a></p>";
-        j++;
-      }
-    }
+    golem_description();
   } else {
     alert("足りないよ( ˙ㅂ˙)ﾉ");
   }
@@ -366,5 +351,24 @@ function hand_refresh(){
   document.getElementById("game_turn").innerHTML = gameTurn + "turn";
   hand_description();
 }
+
+function golem_description(){
+  let golemDescription = "";
+  document.getElementById("golem_market").innerHTML = "";
+  let j = 0;
+  for(i = 0; i < golem.length, j < 5; i++){
+  let bonusPurchase = "";
+    if(golem[i][5] == 0){
+      if(j == 0){
+        bonusPurchase = "　⑶";
+      } else if(j == 1){
+        bonusPurchase = "　⑴";
+      }
+      golemDescription += "<tr><td>【" + golem[i][0] + "点】</td><td>" + golem[i][6] + "</td><td><a onclick='purchase_golem(" + i + ")' class=''> [購入]</a>" + bonusPurchase + "</td></tr>";
+      j++;
+    }
+  }
+  document.getElementById("golem_market").innerHTML = "<table>" + golemDescription + "</table>";
+};
 
 //      document.getElementById("test_text").innerHTML += "( ˙ㅂ˙)";
